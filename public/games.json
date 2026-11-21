@@ -73,6 +73,51 @@
       "description": "Steer a high-speed rolling ball down steep 3D geometric slopes, weaving past red hazards and sudden drops.",
       "thumbnail": "./src/assets/images/cover_slope_1795229837252.jpg",
       "iframe": "<iframe src=\"https://sz-games.github.io/slope/\" title=\"Slope\" allow=\"fullscreen; autoplay\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "skifree",
+      "title": "SkiFree",
+      "category": "Arcade",
+      "controls": "Arrow Keys or Mouse Steer · F Boost · Space Jump",
+      "description": "Carve down snowy alpine trails, dodge trees and moguls, land big jumps, and outrun the Abominable Snowman.",
+      "thumbnail": "./src/assets/images/cover_skifree_1795230067001.jpg",
+      "iframe": "<iframe src=\"https://classicreload.com/play/win3x-skifree.html\" title=\"SkiFree\" allow=\"fullscreen; autoplay\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "crossy-road",
+      "title": "Crossy Road",
+      "category": "Arcade",
+      "controls": "Arrow Keys, WASD, or Click Hop",
+      "description": "Hop across endless busy highways, speeding train tracks, and rushing rivers without getting caught.",
+      "thumbnail": "./src/assets/images/cover_crossy_road_1795230191843.jpg",
+      "iframe": "<iframe src=\"https://sz-games.github.io/cr/\" title=\"Crossy Road\" allow=\"fullscreen; autoplay\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "fnaf-1",
+      "title": "Five Nights at Freddy's",
+      "category": "Strategy",
+      "controls": "Mouse Click Cameras, Doors & Hall Lights",
+      "description": "Survive the midnight security shift from 12 AM to 6 AM by monitoring cameras and conserving door power.",
+      "thumbnail": "./src/assets/images/cover_fnaf_1_1795230311101.jpg",
+      "iframe": "<iframe src=\"https://sz-games.github.io/Games9/fnaf-1/index.html\" title=\"Five Nights at Freddy's\" allow=\"fullscreen; autoplay\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "super-mario-64",
+      "title": "Super Mario 64",
+      "category": "Arcade",
+      "controls": "Arrow Keys Move · X Jump · C Punch · Z Crouch",
+      "description": "Explore 3D castle worlds, leap into painted portals, and collect Power Stars in this classic browser port.",
+      "thumbnail": "./src/assets/images/cover_sm64_1795230404368.jpg",
+      "iframe": "<iframe src=\"https://sz-games.github.io/Games2/sm64/\" title=\"Super Mario 64\" allow=\"fullscreen; autoplay; gamepad\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "moto-x3m",
+      "title": "Moto X3M",
+      "category": "Arcade",
+      "controls": "Up/W Accelerate · Down/S Brake · Left/Right Flip",
+      "description": "Race a dirt bike through obstacle-packed stunt courses, launch off ramps, and land mid-air flips to beat the clock.",
+      "thumbnail": "./src/assets/images/cover_moto_x3m_1795230540361.jpg",
+      "iframe": "<iframe src=\"https://sz-games.github.io/Games5/motox3m/\" title=\"Moto X3M\" allow=\"fullscreen; autoplay\" allowfullscreen=\"\"></iframe>"
     }
   ]
 }
