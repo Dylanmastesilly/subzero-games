@@ -288,6 +288,14 @@
       "controls": "Arrow Keys or WASD to Hit Notes · Enter to Confirm",
       "description": "Hit notes in time with the music in a series of rhythm battles.",
       "iframe": "https://w8.snokido.com/embed/friday-night-funkin"
+    },
+    {
+      "id": "diary-of-a-wimpy-kid-the-meltdown",
+      "title": "Diary of a Wimpy Kid: The Meltdown",
+      "category": "Action",
+      "controls": "Up and Down Arrow Keys to Move · Space to Throw",
+      "description": "Help Greg Heffley win a snowball fight by dodging throws and landing hits.",
+      "iframe": "https://kiz10.com/embed/diary-of-a-wimpy-kid---the-meltdown/"
     }
   ]
 }
