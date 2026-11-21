@@ -275,11 +275,11 @@
     },
     {
       "id": "cookie-clicker",
-      "title": "Cookie Clicker",
+      "title": "Cookie Clicker Classic",
       "category": "Idle",
       "controls": "Click or tap the cookie and buy upgrades in the store",
       "description": "Bake cookies, buy buildings and upgrades, and grow your cookie production over time.",
-      "iframe": "https://www.coolmathgames.com/0-cookie-clicker/play"
+      "iframe": "https://orteil.dashnet.org/experiments/cookie/"
     }
   ]
 }
