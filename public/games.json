@@ -336,6 +336,14 @@
       "controls": "Arrow Keys to Move",
       "description": "Clear the maze of dots, avoid ghosts, and use power pellets to turn the tables.",
       "iframe": "https://sz-games.github.io/pacman"
+    },
+    {
+      "id": "blumgi-slime",
+      "title": "Blumgi Slime",
+      "category": "Arcade",
+      "controls": "Hold Click or Touch to Charge · Release to Jump",
+      "description": "Charge your jumps and bounce across platforms to reach the finish.",
+      "iframe": "https://sz-games.github.io/Games11/slime/Blumgi%20Slime.html"
     }
   ]
 }
