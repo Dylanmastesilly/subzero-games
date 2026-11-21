@@ -37,6 +37,15 @@
       "description": "Classic Flash falling-block puzzle running via Ruffle from Tetris2.swf—rotate tetrominoes and clear horizontal lines.",
       "thumbnail": "./src/assets/images/cover_tetris_2_1795228980137.jpg",
       "iframe": "<iframe src=\"./games/tetris2.html\" title=\"Tetris\" allow=\"fullscreen; autoplay\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "mario-vs-luigi",
+      "title": "Mario vs Luigi",
+      "category": "Arcade",
+      "controls": "Arrow Keys or WASD Move & Jump",
+      "description": "Race across classic platformer arenas to grab falling Big Stars and outscore your rival in head-to-head Mario vs Luigi action.",
+      "thumbnail": "./src/assets/images/cover_mario_vs_luigi_1795229523646.jpg",
+      "iframe": "<iframe frameborder=\"0\" id=\"game\" style=\"text-align: center; align-items: center; overflow: hidden; width: 100%; height: 100%\" src=\"https://mr-funkinguy.github.io/gfile/mariovsluigi/index.html\" allowfullscreen=\"\" data-ruffle-polyfilled=\"\" height=\"956\"></iframe>"
     }
   ]
 }
