@@ -513,6 +513,11 @@ function renderAll() {
 }
 
 function playGame(game) {
+  if (game.openInNewTab && isSafeIframeSrc(game.iframe)) {
+    window.open(game.iframe, '_blank', 'noopener,noreferrer');
+    return;
+  }
+
   state.activeGame = game;
   state.theaterFocus = false;
   renderHero();
