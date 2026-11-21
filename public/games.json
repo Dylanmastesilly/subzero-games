@@ -296,6 +296,14 @@
       "controls": "Up and Down Arrow Keys to Move · Space to Throw",
       "description": "Help Greg Heffley win a snowball fight by dodging throws and landing hits.",
       "iframe": "https://cdn.kiz10.com/upload/games/htmlgames/diary-of-a-wimpy-kid---the-meltdown/index.html"
+    },
+    {
+      "id": "dumb-ways-to-die",
+      "title": "Dumb Ways to Die",
+      "category": "Arcade",
+      "controls": "Use the mouse or tap and follow each minigame’s prompts",
+      "description": "React quickly to complete a series of minigames before the timer runs out.",
+      "iframe": "https://www.miniplay.com/embed/dumb-ways-to-die"
     }
   ]
 }
