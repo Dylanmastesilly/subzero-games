@@ -344,6 +344,14 @@
       "controls": "Hold Click or Touch to Charge · Release to Jump",
       "description": "Charge your jumps and bounce across platforms to reach the finish.",
       "iframe": "https://sz-games.github.io/Games11/slime/Blumgi%20Slime.html"
+    },
+    {
+      "id": "five-nights-at-freddys-2",
+      "title": "Five Nights at Freddy's 2",
+      "category": "Strategy",
+      "controls": "Mouse to Use Cameras, Flashlight, Mask, and Music Box",
+      "description": "Survive the night shift by watching the cameras, winding the music box, and keeping the animatronics away.",
+      "iframe": "https://sz-games.github.io/Games4//fnaf-2/index.html"
     }
   ]
 }
