@@ -1,5 +1,5 @@
 {
-  "catalogTitle": "Recess Arcade Catalog",
+  "catalogTitle": "Subzero Games Catalog",
   "version": "1.0",
   "games": [
     {
@@ -10,6 +10,15 @@
       "description": "Swap and match colorful candies in rows of three or more to trigger cascading combos and clear puzzle boards.",
       "thumbnail": "./src/assets/images/cover_candy_crush_saga_1795226799162.jpg",
       "iframe": "<iframe src=\"https://w8.snokido.com/embed/candy-crush-saga\" id=\"embed\" allow=\"autoplay\" scrolling=\"no\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "geometry-dash",
+      "title": "Geometry Dash",
+      "category": "Arcade",
+      "controls": "Space, Up Arrow, or Mouse Click",
+      "description": "Jump and fly your way through rhythm-based obstacle courses in the official Geometry Dash browser demo.",
+      "thumbnail": "./src/assets/images/cover_geometry_dash_1795227884447.jpg",
+      "iframe": "<iframe src=\"https://www.geometrydash.com/game/index.html\" title=\"Geometry Dash\" class=\"w-full h-full border-0 relative z-50\" scrolling=\"no\" style=\"background: transparent;\"></iframe>"
     }
   ]
 }

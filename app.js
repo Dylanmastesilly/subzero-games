@@ -87,14 +87,20 @@ function isSafeIframeSrc(rawUrl) {
 }
 
 function resolveCatalogRelativeUrl(src) {
-  if (state.catalogPrefix === './public/' && (src.startsWith('./games/') || src.startsWith('/games/'))) {
+  if (state.catalogPrefix === './public/' && (src.startsWith('./') || (src.startsWith('/') && !src.startsWith('//')))) {
     const clean = src.replace(/^\.?\//, '');
     return `./public/${clean}`;
   }
-  if (src.startsWith('/') && !src.startsWith('//')) {
-    return `.${src}`;
-  }
   return src;
+}
+
+function sanitizeIframeStyle(rawStyle) {
+  if (!rawStyle) return '';
+  const lower = rawStyle.toLowerCase();
+  if (lower.includes('url(') || lower.includes('expression') || lower.includes('javascript:')) {
+    return '';
+  }
+  return rawStyle.trim();
 }
 
 function parseIframeHtml(iframeHtml, fallbackTitle = 'Embedded Game') {
@@ -105,9 +111,12 @@ function parseIframeHtml(iframeHtml, fallbackTitle = 'Embedded Game') {
     return {
       src: valid ? resolveCatalogRelativeUrl(raw) : '',
       title: fallbackTitle,
+      id: '',
+      className: '',
       allow: 'fullscreen; autoplay',
       loading: 'lazy',
-      scrolling: 'no',
+      scrolling: '',
+      style: '',
       allowFullscreen: true,
       valid
     };
@@ -117,21 +126,24 @@ function parseIframeHtml(iframeHtml, fallbackTitle = 'Embedded Game') {
     const doc = new DOMParser().parseFromString(raw, 'text/html');
     const el = doc.querySelector('iframe');
     if (!el) {
-      return { src: '', title: fallbackTitle, allow: 'fullscreen', loading: 'lazy', scrolling: 'no', allowFullscreen: true, valid: false };
+      return { src: '', title: fallbackTitle, id: '', className: '', allow: '', loading: '', scrolling: '', style: '', allowFullscreen: false, valid: false };
     }
     const src = el.getAttribute('src') || '';
     const valid = isSafeIframeSrc(src);
     return {
       src: valid ? resolveCatalogRelativeUrl(src) : '',
       title: el.getAttribute('title') || fallbackTitle,
-      allow: el.getAttribute('allow') || 'fullscreen; autoplay',
-      loading: el.getAttribute('loading') === 'eager' ? 'eager' : 'lazy',
-      scrolling: el.getAttribute('scrolling') || 'no',
-      allowFullscreen: el.hasAttribute('allowfullscreen') || true,
+      id: el.getAttribute('id') || '',
+      className: el.getAttribute('class') || '',
+      allow: el.getAttribute('allow') || '',
+      loading: el.getAttribute('loading') || '',
+      scrolling: el.getAttribute('scrolling') || '',
+      style: sanitizeIframeStyle(el.getAttribute('style') || ''),
+      allowFullscreen: el.hasAttribute('allowfullscreen'),
       valid
     };
   } catch {
-    return { src: '', title: fallbackTitle, allow: 'fullscreen', loading: 'lazy', scrolling: 'no', allowFullscreen: true, valid: false };
+    return { src: '', title: fallbackTitle, id: '', className: '', allow: '', loading: '', scrolling: '', style: '', allowFullscreen: false, valid: false };
   }
 }
 
@@ -253,15 +265,15 @@ function renderTheater() {
 
   if (parsed.valid) {
     const iframe = document.createElement('iframe');
-    iframe.className = 'theater-iframe';
-    iframe.src = parsed.src;
-    iframe.title = parsed.title;
-    iframe.allow = parsed.allow;
-    iframe.loading = parsed.loading;
-    iframe.allowFullscreen = parsed.allowFullscreen;
-    if (parsed.scrolling) {
-      iframe.setAttribute('scrolling', parsed.scrolling);
-    }
+    iframe.setAttribute('src', parsed.src);
+    if (parsed.title) iframe.setAttribute('title', parsed.title);
+    if (parsed.id) iframe.setAttribute('id', parsed.id);
+    iframe.className = parsed.className ? `theater-iframe ${parsed.className}` : 'theater-iframe';
+    if (parsed.allow) iframe.setAttribute('allow', parsed.allow);
+    if (parsed.loading) iframe.setAttribute('loading', parsed.loading);
+    if (parsed.scrolling) iframe.setAttribute('scrolling', parsed.scrolling);
+    if (parsed.allowFullscreen) iframe.setAttribute('allowfullscreen', '');
+    if (parsed.style) iframe.setAttribute('style', parsed.style);
     els.theaterStage.appendChild(iframe);
   } else {
     const err = document.createElement('div');
@@ -449,7 +461,7 @@ function renderGameGrid() {
 
 function getExportJsonString() {
   const payload = {
-    catalogTitle: 'Recess Arcade Catalog',
+    catalogTitle: 'Subzero Games Catalog',
     version: '1.0',
     games: getAllGames().map(({ isCustom: _ignored, ...rest }) => rest)
   };
@@ -597,7 +609,7 @@ els.addGameForm.addEventListener('submit', (e) => {
   }
 
   const normalizedIframe = rawIframe.startsWith('<iframe')
-    ? `<iframe src="${parsed.src}" title="${parsed.title}" allow="${parsed.allow}" loading="lazy"></iframe>`
+    ? rawIframe
     : buildIframeSnippet(parsed.src, cleanTitle);
 
   const slug = cleanTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
