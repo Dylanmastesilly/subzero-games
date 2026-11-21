@@ -279,7 +279,8 @@
       "category": "Idle",
       "controls": "Click or tap the cookie and buy upgrades in the store",
       "description": "Bake cookies, buy buildings and upgrades, and grow your cookie production over time.",
-      "iframe": "https://orteil.dashnet.org/cookieclicker/"
+      "iframe": "https://orteil.dashnet.org/cookieclicker/",
+      "openInNewTab": true
     }
   ]
 }
