@@ -1,0 +1,6 @@
+{
+  "name": "Recess Arcade",
+  "description": "A clean unblocked browser games portal storing each HTML5 game as an iframe entry in a JSON catalog.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

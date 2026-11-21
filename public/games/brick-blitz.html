@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brick Blitz</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #0b1324;
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow: hidden;
+      user-select: none;
+    }
+    .shell {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+    }
+    .hud {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 18px;
+      background: #111c33;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .hud-group { display: flex; align-items: center; gap: 18px; }
+    .hud-label { color: #94a3b8; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 6px; }
+    .hud-value { font-weight: 700; color: #f8fafc; }
+    .btn-sm {
+      background: #1e293b;
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-sm:hover { background: #334155; }
+    .stage {
+      position: relative;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      min-height: 0;
+    }
+    canvas {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      aspect-ratio: 800 / 520;
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      cursor: crosshair;
+      touch-action: none;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(11, 19, 36, 0.84);
+      padding: 20px;
+    }
+    .overlay.hidden { display: none; }
+    .card {
+      max-width: 400px;
+      width: 100%;
+      background: #16223b;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 28px;
+      text-align: center;
+    }
+    .card h1 { font-size: 26px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.02em; }
+    .card p { font-size: 14px; color: #cbd5e1; line-height: 1.5; margin-bottom: 18px; }
+    .controls-note {
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #94a3b8;
+      margin-bottom: 20px;
+    }
+    .btn-primary {
+      background: #e11d48;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 11px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-primary:hover { background: #be123c; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="hud">
+      <div class="hud-group">
+        <div><span class="hud-label">Score</span><span class="hud-value" id="scoreEl">0</span></div>
+        <div><span class="hud-label">Best</span><span class="hud-value" id="bestEl">0</span></div>
+        <div><span class="hud-label">Level</span><span class="hud-value" id="levelEl">1</span></div>
+        <div><span class="hud-label">Lives</span><span class="hud-value" id="livesEl">3</span></div>
+      </div>
+      <div class="hud-group">
+        <button class="btn-sm" id="pauseBtn" type="button">Pause</button>
+        <button class="btn-sm" id="soundBtn" type="button">Sound: On</button>
+      </div>
+    </div>
+
+    <div class="stage">
+      <canvas id="gameCanvas" width="800" height="520"></canvas>
+
+      <div class="overlay" id="menuOverlay">
+        <div class="card">
+          <h1 id="overlayTitle">Brick Blitz</h1>
+          <p id="overlayDesc">Clear every ceramic brick across three escalating stages. Catch falling capsules for wide paddles and multi-ball runs.</p>
+          <div class="controls-note">Move with Mouse, Touch, or Arrow / A-D keys. Press Space or Click to launch.</div>
+          <button class="btn-primary" id="startBtn" type="button">Start Game</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById('gameCanvas');
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+
+      const scoreEl = document.getElementById('scoreEl');
+      const bestEl = document.getElementById('bestEl');
+      const levelEl = document.getElementById('levelEl');
+      const livesEl = document.getElementById('livesEl');
+      const menuOverlay = document.getElementById('menuOverlay');
+      const overlayTitle = document.getElementById('overlayTitle');
+      const overlayDesc = document.getElementById('overlayDesc');
+      const startBtn = document.getElementById('startBtn');
+      const pauseBtn = document.getElementById('pauseBtn');
+      const soundBtn = document.getElementById('soundBtn');
+
+      const BEST_KEY = 'recess_brick_blitz_best';
+      let bestScore = Number(localStorage.getItem(BEST_KEY) || 0);
+      bestEl.textContent = bestScore;
+
+      let soundOn = true;
+      let audioCtx = null;
+      function beep(freq, dur, type, vol) {
+        if (!soundOn) return;
+        try {
+          if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = type || 'sine';
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(vol || 0.08, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + dur);
+        } catch (_) {}
+      }
+
+      const COLORS = ['#e11d48', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6'];
+      let state = 'MENU';
+      let score = 0;
+      let lives = 3;
+      let level = 1;
+      let combo = 0;
+      let paddle = { x: W / 2 - 60, y: H - 34, w: 120, h: 14, baseW: 120, wideTimer: 0 };
+      let balls = [];
+      let bricks = [];
+      let particles = [];
+      let powerups = [];
+      let keys = { left: false, right: false };
+
+      function resetBallOnPaddle() {
+        balls = [{
+          x: paddle.x + paddle.w / 2,
+          y: paddle.y - 9,
+          vx: 3.8 * (Math.random() > 0.5 ? 1 : -1),
+          vy: -4.8,
+          r: 8,
+          stuck: true
+        }];
+      }
+
+      function buildLevel(lvl) {
+        bricks = [];
+        const cols = 10;
+        const rows = 5 + Math.min(lvl, 3);
+        const pad = 8;
+        const marginX = 36;
+        const bw = (W - marginX * 2 - pad * (cols - 1)) / cols;
+        const bh = 22;
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            if (lvl === 2 && (c + r) % 7 === 0) continue;
+            if (lvl >= 3 && r === 2 && (c === 3 || c === 6)) continue;
+            const armored = (lvl >= 2 && r === 0) || (lvl >= 3 && r === 1 && c % 2 === 0);
+            bricks.push({
+              x: marginX + c * (bw + pad),
+              y: 52 + r * (bh + pad),
+              w: bw,
+              h: bh,
+              hp: armored ? 2 : 1,
+              maxHp: armored ? 2 : 1,
+              color: COLORS[r % COLORS.length]
+            });
+          }
+        }
+      }
+
+      function syncHud() {
+        scoreEl.textContent = score;
+        if (score > bestScore) {
+          bestScore = score;
+          bestEl.textContent = bestScore;
+          localStorage.setItem(BEST_KEY, String(bestScore));
+        }
+        levelEl.textContent = level;
+        livesEl.textContent = lives;
+      }
+
+      function startNewGame() {
+        score = 0;
+        lives = 3;
+        level = 1;
+        combo = 0;
+        paddle.w = paddle.baseW;
+        paddle.wideTimer = 0;
+        paddle.x = W / 2 - paddle.w / 2;
+        particles = [];
+        powerups = [];
+        buildLevel(level);
+        resetBallOnPaddle();
+        syncHud();
+        state = 'PLAYING';
+        pauseBtn.textContent = 'Pause';
+        menuOverlay.classList.add('hidden');
+      }
+
+      function launchBalls() {
+        let launched = false;
+        for (const b of balls) {
+          if (b.stuck) {
+            b.stuck = false;
+            launched = true;
+          }
+        }
+        if (launched) beep(520, 0.08, 'triangle', 0.08);
+      }
+
+      function spawnParticles(x, y, color) {
+        for (let i = 0; i < 10; i++) {
+          const ang = Math.random() * Math.PI * 2;
+          const spd = 1.5 + Math.random() * 3.2;
+          particles.push({
+            x, y,
+            vx: Math.cos(ang) * spd,
+            vy: Math.sin(ang) * spd,
+            life: 1,
+            color
+          });
+        }
+      }
+
+      function maybeDropPowerup(x, y) {
+        if (Math.random() > 0.18) return;
+        const kinds = ['WIDE', 'MULTI', 'LIFE'];
+        const kind = kinds[Math.floor(Math.random() * kinds.length)];
+        powerups.push({ x: x - 20, y, w: 40, h: 18, vy: 2.4, kind });
+      }
+
+      function update() {
+        if (state !== 'PLAYING') return;
+
+        if (keys.left) paddle.x -= 8;
+        if (keys.right) paddle.x += 8;
+        paddle.x = Math.max(8, Math.min(W - paddle.w - 8, paddle.x));
+
+        if (paddle.wideTimer > 0) {
+          paddle.wideTimer--;
+          if (paddle.wideTimer === 0) paddle.w = paddle.baseW;
+        }
+
+        for (let i = powerups.length - 1; i >= 0; i--) {
+          const p = powerups[i];
+          p.y += p.vy;
+          if (p.x < paddle.x + paddle.w && p.x + p.w > paddle.x && p.y + p.h >= paddle.y && p.y <= paddle.y + paddle.h) {
+            beep(660, 0.14, 'triangle', 0.1);
+            if (p.kind === 'WIDE') {
+              paddle.w = 176;
+              paddle.wideTimer = 600;
+            } else if (p.kind === 'MULTI' && balls.length < 6) {
+              const ref = balls[0];
+              if (ref) {
+                balls.push({ x: ref.x, y: ref.y, vx: -ref.vx, vy: -Math.abs(ref.vy), r: 8, stuck: false });
+              }
+            } else if (p.kind === 'LIFE') {
+              lives = Math.min(5, lives + 1);
+              syncHud();
+            }
+            powerups.splice(i, 1);
+            continue;
+          }
+          if (p.y > H) powerups.splice(i, 1);
+        }
+
+        for (let i = balls.length - 1; i >= 0; i--) {
+          const b = balls[i];
+          if (b.stuck) {
+            b.x = paddle.x + paddle.w / 2;
+            b.y = paddle.y - b.r - 1;
+            continue;
+          }
+
+          b.x += b.vx;
+          b.y += b.vy;
+
+          if (b.x - b.r <= 0) { b.x = b.r; b.vx = Math.abs(b.vx); beep(300, 0.05, 'sine', 0.05); }
+          if (b.x + b.r >= W) { b.x = W - b.r; b.vx = -Math.abs(b.vx); beep(300, 0.05, 'sine', 0.05); }
+          if (b.y - b.r <= 0) { b.y = b.r; b.vy = Math.abs(b.vy); beep(300, 0.05, 'sine', 0.05); }
+
+          if (
+            b.vy > 0 &&
+            b.y + b.r >= paddle.y &&
+            b.y - b.r <= paddle.y + paddle.h &&
+            b.x >= paddle.x - 4 &&
+            b.x <= paddle.x + paddle.w + 4
+          ) {
+            const hitRatio = ((b.x - (paddle.x + paddle.w / 2)) / (paddle.w / 2));
+            const speed = Math.min(8.5, Math.hypot(b.vx, b.vy) + 0.06);
+            const angle = hitRatio * (Math.PI / 3);
+            b.vx = Math.sin(angle) * speed;
+            b.vy = -Math.cos(angle) * speed;
+            b.y = paddle.y - b.r - 1;
+            combo = 0;
+            beep(420, 0.07, 'triangle', 0.07);
+          }
+
+          for (let j = bricks.length - 1; j >= 0; j--) {
+            const br = bricks[j];
+            if (b.x + b.r > br.x && b.x - b.r < br.x + br.w && b.y + b.r > br.y && b.y - b.r < br.y + br.h) {
+              const overlapLeft = b.x + b.r - br.x;
+              const overlapRight = br.x + br.w - (b.x - b.r);
+              const overlapTop = b.y + b.r - br.y;
+              const overlapBottom = br.y + br.h - (b.y - b.r);
+              const minOverlap = Math.min(overlapLeft, overlapRight, overlapTop, overlapBottom);
+              if (minOverlap === overlapLeft || minOverlap === overlapRight) {
+                b.vx = -b.vx;
+              } else {
+                b.vy = -b.vy;
+              }
+
+              br.hp--;
+              if (br.hp <= 0) {
+                combo++;
+                score += 25 * Math.min(combo, 5);
+                spawnParticles(br.x + br.w / 2, br.y + br.h / 2, br.color);
+                maybeDropPowerup(br.x + br.w / 2, br.y + br.h / 2);
+                bricks.splice(j, 1);
+                beep(540 + combo * 28, 0.08, 'sine', 0.08);
+              } else {
+                score += 10;
+                beep(240, 0.06, 'square', 0.05);
+              }
+              syncHud();
+              break;
+            }
+          }
+
+          if (b.y - b.r > H) {
+            balls.splice(i, 1);
+          }
+        }
+
+        if (balls.length === 0) {
+          lives--;
+          combo = 0;
+          syncHud();
+          beep(160, 0.25, 'sawtooth', 0.08);
+          if (lives <= 0) {
+            state = 'GAMEOVER';
+            overlayTitle.textContent = 'Game Over';
+            overlayDesc.textContent = 'Final Score: ' + score + ' · Best: ' + bestScore;
+            startBtn.textContent = 'Play Again';
+            menuOverlay.classList.remove('hidden');
+          } else {
+            resetBallOnPaddle();
+          }
+        }
+
+        if (bricks.length === 0) {
+          level++;
+          syncHud();
+          beep(720, 0.2, 'triangle', 0.1);
+          if (level > 4) {
+            state = 'GAMEOVER';
+            overlayTitle.textContent = 'All Stages Cleared';
+            overlayDesc.textContent = 'Victory! Final Score: ' + score;
+            startBtn.textContent = 'Play Again';
+            menuOverlay.classList.remove('hidden');
+          } else {
+            buildLevel(level);
+            resetBallOnPaddle();
+          }
+        }
+
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const pt = particles[i];
+          pt.x += pt.vx;
+          pt.y += pt.vy;
+          pt.life -= 0.03;
+          if (pt.life <= 0) particles.splice(i, 1);
+        }
+      }
+
+      function draw() {
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(0, 0, W, H);
+
+        ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+        ctx.lineWidth = 1;
+        for (let gx = 40; gx < W; gx += 40) {
+          ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke();
+        }
+        for (let gy = 40; gy < H; gy += 40) {
+          ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke();
+        }
+
+        for (const br of bricks) {
+          ctx.fillStyle = br.color;
+          ctx.beginPath();
+          ctx.roundRect(br.x, br.y, br.w, br.h, 4);
+          ctx.fill();
+          if (br.hp > 1) {
+            ctx.strokeStyle = '#f8fafc';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+          }
+        }
+
+        for (const p of powerups) {
+          ctx.fillStyle = p.kind === 'WIDE' ? '#3b82f6' : p.kind === 'MULTI' ? '#f59e0b' : '#10b981';
+          ctx.beginPath();
+          ctx.roundRect(p.x, p.y, p.w, p.h, 4);
+          ctx.fill();
+          ctx.fillStyle = '#ffffff';
+          ctx.font = '700 10px system-ui, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(p.kind, p.x + p.w / 2, p.y + p.h / 2 + 0.5);
+        }
+
+        ctx.fillStyle = paddle.wideTimer > 0 ? '#38bdf8' : '#f8fafc';
+        ctx.beginPath();
+        ctx.roundRect(paddle.x, paddle.y, paddle.w, paddle.h, 7);
+        ctx.fill();
+
+        for (const b of balls) {
+          ctx.fillStyle = '#f8fafc';
+          ctx.beginPath();
+          ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        for (const pt of particles) {
+          ctx.globalAlpha = pt.life;
+          ctx.fillStyle = pt.color;
+          ctx.fillRect(pt.x - 2, pt.y - 2, 4, 4);
+        }
+        ctx.globalAlpha = 1;
+      }
+
+      function loop() {
+        update();
+        draw();
+        requestAnimationFrame(loop);
+      }
+
+      function movePaddleToClientX(clientX) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = W / rect.width;
+        const x = (clientX - rect.left) * scaleX;
+        paddle.x = Math.max(8, Math.min(W - paddle.w - 8, x - paddle.w / 2));
+      }
+
+      canvas.addEventListener('mousemove', (e) => {
+        if (state === 'PLAYING') movePaddleToClientX(e.clientX);
+      });
+      canvas.addEventListener('mousedown', () => {
+        if (state === 'PLAYING') launchBalls();
+      });
+      canvas.addEventListener('touchmove', (e) => {
+        if (state === 'PLAYING' && e.touches[0]) {
+          e.preventDefault();
+          movePaddleToClientX(e.touches[0].clientX);
+        }
+      }, { passive: false });
+      canvas.addEventListener('touchstart', () => {
+        if (state === 'PLAYING') launchBalls();
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (['ArrowLeft', 'ArrowRight', 'Space', ' '].includes(e.key)) e.preventDefault();
+        if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left = true;
+        if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right = true;
+        if (e.key === ' ') launchBalls();
+        if (e.key === 'p' || e.key === 'P') togglePause();
+      });
+      window.addEventListener('keyup', (e) => {
+        if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left = false;
+        if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right = false;
+      });
+
+      function togglePause() {
+        if (state === 'PLAYING') {
+          state = 'PAUSED';
+          pauseBtn.textContent = 'Resume';
+          overlayTitle.textContent = 'Paused';
+          overlayDesc.textContent = 'Take a breather. Click Resume to continue your run.';
+          startBtn.textContent = 'Resume';
+          menuOverlay.classList.remove('hidden');
+        } else if (state === 'PAUSED') {
+          state = 'PLAYING';
+          pauseBtn.textContent = 'Pause';
+          menuOverlay.classList.add('hidden');
+        }
+      }
+
+      startBtn.addEventListener('click', () => {
+        if (state === 'PAUSED') togglePause();
+        else startNewGame();
+      });
+      pauseBtn.addEventListener('click', togglePause);
+      soundBtn.addEventListener('click', () => {
+        soundOn = !soundOn;
+        soundBtn.textContent = soundOn ? 'Sound: On' : 'Sound: Off';
+      });
+
+      buildLevel(1);
+      resetBallOnPaddle();
+      loop();
+    })();
+  </script>
+</body>
+</html>
