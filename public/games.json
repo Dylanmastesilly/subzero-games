@@ -264,6 +264,14 @@
       "controls": "Left and Right Arrow Keys to Move · Space to Jump",
       "description": "Run through space tunnels, jump over gaps, and rotate the tunnel by running onto its walls.",
       "iframe": "https://sz-games.github.io/Run3/tn6pS9dCf37xAhkJv/"
+    },
+    {
+      "id": "bloxorz",
+      "title": "Bloxorz",
+      "category": "Puzzle",
+      "controls": "Arrow Keys to Roll the Block",
+      "description": "Roll a rectangular block across narrow platforms and stand it upright in the goal hole.",
+      "iframe": "https://sz-games.github.io/games/blox.html"
     }
   ]
 }
