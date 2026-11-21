@@ -312,6 +312,14 @@
       "controls": "Mouse to Take Orders, Add Toppings, Bake, and Slice",
       "description": "Run a pizza shop and make each pie to match the customer’s order.",
       "iframe": "./games/papas-pizzeria.html"
+    },
+    {
+      "id": "super-smash-flash",
+      "title": "Super Smash Flash",
+      "category": "Action",
+      "controls": "Keyboard · See the game’s Controls menu",
+      "description": "Battle across platform arenas and knock opponents off the stage.",
+      "iframe": "./games/super-smash-flash.html"
     }
   ]
 }
