@@ -8,7 +8,8 @@
       "category": "Puzzle",
       "controls": "Mouse Click or Touch Swipe",
       "description": "Swap and match colorful candies in rows of three or more to trigger cascading combos and clear puzzle boards.",
-      "thumbnail": "./src/assets/images/cover_candy_crush_saga_1795226799162.jpg",
+      "thumbnail": "https://www.gamespot.com/a/uploads/scale_tiny/mig/0/3/8/0/2230380-candy_crush.png",
+      "thumbnailFit": "contain",
       "iframe": "<iframe src=\"https://w8.snokido.com/embed/candy-crush-saga\" id=\"embed\" allow=\"autoplay\" scrolling=\"no\" allowfullscreen=\"\"></iframe>"
     },
     {
@@ -17,7 +18,8 @@
       "category": "Arcade",
       "controls": "Space, Up Arrow, or Mouse Click",
       "description": "Jump and fly your way through rhythm-based obstacle courses in the official Geometry Dash browser demo.",
-      "thumbnail": "./src/assets/images/cover_geometry_dash_1795227884447.jpg",
+      "thumbnail": "https://cdn.iconscout.com/icon/free/png-256/free-geometry-dash-icon-download-in-svg-png-gif-file-formats--company-logo-industry-brand-pack-logos-icons-10673458.png?f=webp&w=256",
+      "thumbnailFit": "contain",
       "iframe": "<iframe src=\"https://www.geometrydash.com/game/index.html\" title=\"Geometry Dash\" class=\"w-full h-full border-0 relative z-50\" scrolling=\"no\" style=\"background: transparent;\"></iframe>"
     },
     {
@@ -26,7 +28,8 @@
       "category": "Arcade",
       "controls": "Space, Mouse Click, or Tap",
       "description": "Tap to flap through narrow emerald pipe gaps and push your high score without hitting pipes or the ground.",
-      "thumbnail": "./src/assets/images/cover_flappy_bird_1795228801067.jpg",
+      "thumbnail": "https://upload.wikimedia.org/wikipedia/en/0/0a/Flappy_Bird_icon.png",
+      "thumbnailFit": "contain",
       "iframe": "<iframe frameborder=\"0\" id=\"game\" style=\"text-align: center; align-items: center; overflow: hidden; width: 100%; height: 100%\" src=\"https://mr-funkinguy.github.io/gfile/flappy/index.html\" allowfullscreen=\"\" data-ruffle-polyfilled=\"\" height=\"956\"></iframe>"
     },
     {
@@ -118,6 +121,69 @@
       "description": "Race a dirt bike through obstacle-packed stunt courses, launch off ramps, and land mid-air flips to beat the clock.",
       "thumbnail": "./src/assets/images/cover_moto_x3m_1795230540361.jpg",
       "iframe": "<iframe src=\"https://sz-games.github.io/Games5/motox3m/\" title=\"Moto X3M\" allow=\"fullscreen; autoplay\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "doom",
+      "title": "DOOM",
+      "category": "Action",
+      "controls": "Arrow Keys Move · Ctrl Shoot · Space Doors · Shift Run",
+      "description": "Fight through classic industrial Mars base corridors in this fast WebAssembly browser port of DOOM.",
+      "thumbnail": "./src/assets/images/cover_doom_1795281541895.jpg",
+      "iframe": "<iframe src=\"https://mr-funkinguy.github.io/wasmStuff/doom/\" title=\"DOOM\" allow=\"fullscreen; autoplay; pointer-lock\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "retro-bowl",
+      "title": "Retro Bowl",
+      "category": "Sports",
+      "controls": "Mouse Drag Aim & Pass · W/S or Arrows Dodge",
+      "description": "Call plays, manage your franchise roster, and throw game-winning passes in this retro pixel-art football classic.",
+      "thumbnail": "./src/assets/images/cover_retro_bowl_1795281741807.jpg",
+      "iframe": "<iframe frameborder=\"0\" id=\"game\" style=\"text-align: center; align-items: center; overflow: hidden; width: 100%; height: 100%\" src=\"https://sz-games.github.io/Games11/retro-bowl/game\" allowfullscreen=\"\" data-ruffle-polyfilled=\"\" height=\"956\"></iframe>"
+    },
+    {
+      "id": "2048",
+      "title": "2048",
+      "category": "Puzzle",
+      "controls": "Arrow Keys, WASD, or Swipe · Z Undo · R Restart",
+      "description": "Slide numbered ice tiles across the 4x4 grid to merge matching powers of two and reach 2048.",
+      "thumbnail": "./src/assets/images/cover_2048_1795281988894.jpg",
+      "iframe": "<iframe src=\"./games/2048.html\" title=\"2048\" allow=\"fullscreen; autoplay\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "stickman-hook",
+      "title": "Stickman Hook",
+      "category": "Arcade",
+      "controls": "Mouse Hold, Space, or Tap Swing",
+      "description": "Grapple onto floating hooks, launch off springy bounce pads, and swing across acrobatic courses to the finish.",
+      "thumbnail": "./src/assets/images/cover_stickman_hook_1795282474326.jpg",
+      "iframe": "<iframe frameborder=\"0\" id=\"game\" style=\"text-align: center; align-items: center; overflow: hidden; width: 100%; height: 100%\" src=\"https://sz-games.github.io/Games5/stickman-hook\" allowfullscreen=\"\" data-ruffle-polyfilled=\"\" height=\"956\"></iframe>"
+    },
+    {
+      "id": "dino-runner",
+      "title": "Dino Runner",
+      "category": "Arcade",
+      "controls": "Space or Up Arrow Jump · Down Arrow Duck",
+      "description": "Sprint across the endless desert as the classic T-Rex, leaping over cacti and ducking beneath flying pterodactyls.",
+      "thumbnail": "./src/assets/images/cover_dino_1795282630856.jpg",
+      "iframe": "<iframe frameborder=\"0\" id=\"game\" style=\"text-align: center; align-items: center; overflow: hidden; width: 100%; height: 100%\" src=\"https://sz-games.github.io/games/dino\" allowfullscreen=\"\" data-ruffle-polyfilled=\"\" height=\"956\"></iframe>"
+    },
+    {
+      "id": "getting-over-it",
+      "title": "Getting Over It",
+      "category": "Arcade",
+      "controls": "Mouse Move Swing Hammer & Climb",
+      "description": "Swing a climbing hammer with physics-based precision to scale steep cliffs and reach the summit.",
+      "thumbnail": "./src/assets/images/cover_getting_over_it_1795282796454.jpg",
+      "iframe": "<iframe frameborder=\"0\" id=\"game\" style=\"text-align: center; align-items: center; overflow: hidden; width: 100%; height: 100%\" src=\"https://sz-games.github.io/Games7/getting-over-it\" allowfullscreen=\"\" data-ruffle-polyfilled=\"\" height=\"956\"></iframe>"
+    },
+    {
+      "id": "eaglercraft",
+      "title": "Minecraft 1.5.2 (Eaglercraft)",
+      "category": "Sandbox",
+      "controls": "WASD Move · Space Jump · Mouse Mine & Build · E Inventory",
+      "description": "Build, mine, and explore blocky 3D worlds right in your browser with the Precision Client 1.5.2 edition.",
+      "thumbnail": "./src/assets/images/cover_eaglercraft_1795282890451.jpg",
+      "iframe": "<iframe frameborder=\"0\" id=\"game\" style=\"text-align: center; align-items: center; overflow: hidden; width: 100%; height: 100%\" src=\"https://sz-games.github.io/storage3/AWeb/\" allowfullscreen=\"\" data-ruffle-polyfilled=\"\" height=\"956\"></iframe>"
     }
   ]
 }
