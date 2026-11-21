@@ -3,58 +3,13 @@
   "version": "1.0",
   "games": [
     {
-      "id": "brick-blitz",
-      "title": "Brick Blitz",
-      "category": "Arcade",
-      "controls": "Mouse or Arrow Keys · Space to Launch",
-      "description": "Break layered ceramic and armored brick walls with a rebounding ball, wide-paddle capsules, and multi-ball drops.",
-      "thumbnail": "./src/assets/images/cover_brick_blitz_1795223544834.jpg",
-      "iframe": "<iframe src=\"./games/brick-blitz.html\" title=\"Brick Blitz\" allow=\"fullscreen; autoplay\" loading=\"lazy\"></iframe>"
-    },
-    {
-      "id": "grid-2048",
-      "title": "Grid 2048",
+      "id": "candy-crush-saga",
+      "title": "Candy Crush Saga",
       "category": "Puzzle",
-      "controls": "Arrow Keys, WASD, or Swipe",
-      "description": "Slide matching numbered tiles across a 4x4 board to reach the 2048 tile, complete with one-step undo and local best tracking.",
-      "thumbnail": "./src/assets/images/cover_grid_2048_1795223544870.jpg",
-      "iframe": "<iframe src=\"./games/grid-2048.html\" title=\"Grid 2048\" allow=\"fullscreen\" loading=\"lazy\"></iframe>"
-    },
-    {
-      "id": "starfield-dodger",
-      "title": "Starfield Dodger",
-      "category": "Arcade",
-      "controls": "WASD, Arrow Keys, or Mouse",
-      "description": "Pilot an agile delta ship through incoming asteroid fields while harvesting amber energy crystals and protective shield orbs.",
-      "thumbnail": "./src/assets/images/cover_starfield_dodger_1795223543671.jpg",
-      "iframe": "<iframe src=\"./games/starfield-dodger.html\" title=\"Starfield Dodger\" allow=\"fullscreen; autoplay\" loading=\"lazy\"></iframe>"
-    },
-    {
-      "id": "snake-classic",
-      "title": "Snake Classic",
-      "category": "Arcade",
-      "controls": "Arrow Keys or WASD · P to Pause",
-      "description": "Guide a growing geometric serpent across the grid with queued directional turns, bonus golden apples, and wall or wrap modes.",
-      "thumbnail": "./src/assets/images/cover_snake_classic_1795223544355.jpg",
-      "iframe": "<iframe src=\"./games/snake-classic.html\" title=\"Snake Classic\" allow=\"fullscreen; autoplay\" loading=\"lazy\"></iframe>"
-    },
-    {
-      "id": "memory-pairs",
-      "title": "Memory Pairs",
-      "category": "Puzzle",
-      "controls": "Mouse Click or Tap",
-      "description": "Flip linen tabletop cards to match crisp geometric symbols in the fewest moves across 4x3, 4x4, and 6x4 board sizes.",
-      "thumbnail": "./src/assets/images/cover_memory_pairs_1795223544226.jpg",
-      "iframe": "<iframe src=\"./games/memory-pairs.html\" title=\"Memory Pairs\" allow=\"fullscreen\" loading=\"lazy\"></iframe>"
-    },
-    {
-      "id": "minesweeper",
-      "title": "Minesweeper Grid",
-      "category": "Puzzle",
-      "controls": "Left Click Reveal · Right Click Flag",
-      "description": "Deduce hidden mines across Beginner, Intermediate, and Expert grids with safe first-click opening and chord clearing.",
-      "thumbnail": "./src/assets/images/cover_minesweeper_1795223544122.jpg",
-      "iframe": "<iframe src=\"./games/minesweeper.html\" title=\"Minesweeper Grid\" allow=\"fullscreen\" loading=\"lazy\"></iframe>"
+      "controls": "Mouse Click or Touch Swipe",
+      "description": "Swap and match colorful candies in rows of three or more to trigger cascading combos and clear puzzle boards.",
+      "thumbnail": "./src/assets/images/cover_candy_crush_saga_1795226799162.jpg",
+      "iframe": "<iframe src=\"https://w8.snokido.com/embed/candy-crush-saga\" id=\"embed\" allow=\"autoplay\" scrolling=\"no\" allowfullscreen=\"\"></iframe>"
     }
   ]
 }

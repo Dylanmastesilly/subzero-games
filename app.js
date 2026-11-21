@@ -107,6 +107,8 @@ function parseIframeHtml(iframeHtml, fallbackTitle = 'Embedded Game') {
       title: fallbackTitle,
       allow: 'fullscreen; autoplay',
       loading: 'lazy',
+      scrolling: 'no',
+      allowFullscreen: true,
       valid
     };
   }
@@ -115,7 +117,7 @@ function parseIframeHtml(iframeHtml, fallbackTitle = 'Embedded Game') {
     const doc = new DOMParser().parseFromString(raw, 'text/html');
     const el = doc.querySelector('iframe');
     if (!el) {
-      return { src: '', title: fallbackTitle, allow: 'fullscreen', loading: 'lazy', valid: false };
+      return { src: '', title: fallbackTitle, allow: 'fullscreen', loading: 'lazy', scrolling: 'no', allowFullscreen: true, valid: false };
     }
     const src = el.getAttribute('src') || '';
     const valid = isSafeIframeSrc(src);
@@ -124,10 +126,12 @@ function parseIframeHtml(iframeHtml, fallbackTitle = 'Embedded Game') {
       title: el.getAttribute('title') || fallbackTitle,
       allow: el.getAttribute('allow') || 'fullscreen; autoplay',
       loading: el.getAttribute('loading') === 'eager' ? 'eager' : 'lazy',
+      scrolling: el.getAttribute('scrolling') || 'no',
+      allowFullscreen: el.hasAttribute('allowfullscreen') || true,
       valid
     };
   } catch {
-    return { src: '', title: fallbackTitle, allow: 'fullscreen', loading: 'lazy', valid: false };
+    return { src: '', title: fallbackTitle, allow: 'fullscreen', loading: 'lazy', scrolling: 'no', allowFullscreen: true, valid: false };
   }
 }
 
@@ -254,6 +258,10 @@ function renderTheater() {
     iframe.title = parsed.title;
     iframe.allow = parsed.allow;
     iframe.loading = parsed.loading;
+    iframe.allowFullscreen = parsed.allowFullscreen;
+    if (parsed.scrolling) {
+      iframe.setAttribute('scrolling', parsed.scrolling);
+    }
     els.theaterStage.appendChild(iframe);
   } else {
     const err = document.createElement('div');
@@ -315,6 +323,23 @@ function renderGameGrid() {
   });
 
   els.gridContainer.innerHTML = '';
+
+  if (games.length === 0) {
+    const box = document.createElement('div');
+    box.className = 'state-box';
+    const heading = document.createElement('h2');
+    heading.textContent = 'No games in catalog';
+    const text = document.createElement('p');
+    text.textContent = 'Add an iframe game entry using the button below or edit public/games.json.';
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.className = 'btn-primary';
+    addBtn.textContent = 'Add Game';
+    addBtn.addEventListener('click', openAddModal);
+    box.append(heading, text, addBtn);
+    els.gridContainer.appendChild(box);
+    return;
+  }
 
   if (filtered.length === 0) {
     const box = document.createElement('div');
