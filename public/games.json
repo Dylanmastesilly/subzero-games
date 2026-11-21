@@ -256,6 +256,14 @@
       "description": "Explore the Kanto region, capture rare wild Pokémon, defeat all eight Gym Leaders, and conquer the Pokémon League.",
       "thumbnail": "./src/assets/images/cover_pokemon_leafgreen_1795284737463.jpg",
       "iframe": "<iframe src=\"https://classicgamezone.com/games/pokemon-leafgreen\" title=\"Pokémon LeafGreen\" allow=\"fullscreen; autoplay; gamepad\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "run-3",
+      "title": "Run 3",
+      "category": "Arcade",
+      "controls": "Left and Right Arrow Keys to Move · Space to Jump",
+      "description": "Run through space tunnels, jump over gaps, and rotate the tunnel by running onto its walls.",
+      "iframe": "https://sz-games.github.io/Run3/tn6pS9dCf37xAhkJv/"
     }
   ]
 }
