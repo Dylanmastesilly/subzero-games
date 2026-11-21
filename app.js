@@ -25,7 +25,10 @@ const els = {
   theaterSrc: document.getElementById('theaterSrc'),
   reloadBtn: document.getElementById('reloadBtn'),
   focusBtn: document.getElementById('focusBtn'),
+  focusBtnLabel: document.getElementById('focusBtnLabel'),
   fullscreenBtn: document.getElementById('fullscreenBtn'),
+  fullscreenBtnLabel: document.getElementById('fullscreenBtnLabel'),
+  fullscreenIcon: document.getElementById('fullscreenIcon'),
   closeTheaterBtn: document.getElementById('closeTheaterBtn'),
   filterTabs: document.getElementById('filterTabs'),
   searchInput: document.getElementById('searchInput'),
@@ -78,6 +81,7 @@ function parseIframeHtml(iframeHtml, fallbackTitle = 'Embedded Game') {
       allow: 'fullscreen; autoplay',
       loading: 'lazy',
       scrolling: '',
+      referrerPolicy: 'no-referrer',
       style: '',
       allowFullscreen: true,
       valid
@@ -88,24 +92,35 @@ function parseIframeHtml(iframeHtml, fallbackTitle = 'Embedded Game') {
     const doc = new DOMParser().parseFromString(raw, 'text/html');
     const el = doc.querySelector('iframe');
     if (!el) {
-      return { src: '', title: fallbackTitle, id: '', className: '', allow: '', loading: '', scrolling: '', style: '', allowFullscreen: false, valid: false };
+      return { src: '', title: fallbackTitle, id: '', className: '', allow: '', loading: '', scrolling: '', referrerPolicy: 'no-referrer', style: '', allowFullscreen: false, valid: false };
     }
     const src = el.getAttribute('src') || '';
     const valid = isSafeIframeSrc(src);
+    const rawAllow = el.getAttribute('allow') || '';
+    const allowTokens = new Set(
+      rawAllow
+        .split(';')
+        .map((s) => s.trim())
+        .filter(Boolean)
+    );
+    allowTokens.add('fullscreen');
+    allowTokens.add('autoplay');
+
     return {
       src: valid ? resolveCatalogRelativeUrl(src) : '',
       title: el.getAttribute('title') || fallbackTitle,
       id: el.getAttribute('id') || '',
       className: el.getAttribute('class') || '',
-      allow: el.getAttribute('allow') || '',
+      allow: Array.from(allowTokens).join('; '),
       loading: el.getAttribute('loading') || '',
       scrolling: el.getAttribute('scrolling') || '',
+      referrerPolicy: el.getAttribute('referrerpolicy') || 'no-referrer',
       style: sanitizeIframeStyle(el.getAttribute('style') || ''),
-      allowFullscreen: el.hasAttribute('allowfullscreen'),
+      allowFullscreen: true,
       valid
     };
   } catch {
-    return { src: '', title: fallbackTitle, id: '', className: '', allow: '', loading: '', scrolling: '', style: '', allowFullscreen: false, valid: false };
+    return { src: '', title: fallbackTitle, id: '', className: '', allow: '', loading: '', scrolling: '', referrerPolicy: 'no-referrer', style: '', allowFullscreen: false, valid: false };
   }
 }
 
@@ -193,18 +208,101 @@ function renderHero() {
   }
 }
 
+function isFullscreenActive() {
+  return Boolean(document.fullscreenElement || document.webkitFullscreenElement);
+}
+
+function syncTheaterControls() {
+  const focusActive = Boolean(state.activeGame && state.theaterFocus);
+  const fsActive = isFullscreenActive();
+
+  els.theaterSection.classList.toggle('theater-focus', focusActive);
+  document.body.classList.toggle('theater-locked', focusActive);
+
+  if (els.focusBtnLabel) {
+    els.focusBtnLabel.textContent = focusActive ? 'Exit Focus' : 'Focus Mode';
+  }
+  els.focusBtn.setAttribute('aria-pressed', String(focusActive));
+
+  if (els.fullscreenBtnLabel) {
+    els.fullscreenBtnLabel.textContent = fsActive ? 'Exit Fullscreen' : 'Fullscreen';
+  }
+  els.fullscreenBtn.setAttribute('aria-pressed', String(fsActive));
+
+  if (els.fullscreenIcon) {
+    els.fullscreenIcon.innerHTML = fsActive
+      ? '<polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line>'
+      : '<polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line>';
+  }
+}
+
+function focusGameFrame() {
+  const iframe = els.theaterStage.querySelector('iframe');
+  if (!iframe) return;
+  try {
+    iframe.focus();
+    iframe.contentWindow?.focus();
+  } catch {
+    // Cross-origin frame focus may be ignored by browser
+  }
+}
+
+async function exitFullscreenIfActive() {
+  if (!isFullscreenActive()) return;
+  try {
+    if (document.exitFullscreen) {
+      await document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      await document.webkitExitFullscreen();
+    }
+  } catch {
+    // Ignore exit errors
+  }
+}
+
+async function toggleFullscreen() {
+  if (!state.activeGame) return;
+
+  if (isFullscreenActive()) {
+    await exitFullscreenIfActive();
+    syncTheaterControls();
+    return;
+  }
+
+  const target = els.theaterStage;
+  try {
+    if (target.requestFullscreen) {
+      await target.requestFullscreen({ navigationUI: 'hide' });
+      syncTheaterControls();
+      focusGameFrame();
+      return;
+    }
+    if (target.webkitRequestFullscreen) {
+      await target.webkitRequestFullscreen();
+      syncTheaterControls();
+      focusGameFrame();
+      return;
+    }
+  } catch {
+    // Fallback to edge-to-edge focus mode if native fullscreen is blocked
+  }
+
+  state.theaterFocus = !state.theaterFocus;
+  syncTheaterControls();
+  focusGameFrame();
+}
+
 function renderTheater() {
   const game = state.activeGame;
   if (!game) {
     els.theaterSection.classList.add('hidden');
-    els.theaterSection.classList.remove('theater-focus');
     els.theaterStage.innerHTML = '';
+    syncTheaterControls();
     return;
   }
 
   els.theaterSection.classList.remove('hidden');
-  els.theaterSection.classList.toggle('theater-focus', state.theaterFocus);
-  els.focusBtn.textContent = state.theaterFocus ? 'Exit Focus' : 'Focus Mode';
+  syncTheaterControls();
 
   els.theaterTitle.textContent = game.title;
   els.theaterCategory.textContent = game.category;
@@ -212,11 +310,17 @@ function renderTheater() {
   els.theaterDesc.textContent = game.description;
 
   const parsed = parseIframeHtml(game.iframe, game.title);
-  els.theaterSrc.textContent = parsed.src || 'Invalid URL';
+  els.theaterSrc.textContent = !parsed.src
+    ? 'Invalid URL'
+    : /snokido/i.test(parsed.src)
+      ? `${game.title} · Flash Ruffle Player`
+      : parsed.src;
   els.theaterStage.innerHTML = '';
 
   if (parsed.valid) {
     const iframe = document.createElement('iframe');
+    iframe.setAttribute('referrerpolicy', parsed.referrerPolicy || 'no-referrer');
+    iframe.referrerPolicy = parsed.referrerPolicy || 'no-referrer';
     iframe.setAttribute('src', parsed.src);
     if (parsed.title) iframe.setAttribute('title', parsed.title);
     if (parsed.id) iframe.setAttribute('id', parsed.id);
@@ -226,6 +330,7 @@ function renderTheater() {
     if (parsed.scrolling) iframe.setAttribute('scrolling', parsed.scrolling);
     if (parsed.allowFullscreen) iframe.setAttribute('allowfullscreen', '');
     if (parsed.style) iframe.setAttribute('style', parsed.style);
+    iframe.addEventListener('load', focusGameFrame);
     els.theaterStage.appendChild(iframe);
   } else {
     const err = document.createElement('div');
@@ -418,6 +523,7 @@ function playGame(game) {
 
 els.brandLink.addEventListener('click', (e) => {
   e.preventDefault();
+  exitFullscreenIfActive();
   state.activeGame = null;
   state.theaterFocus = false;
   state.selectedCategory = 'All';
@@ -454,27 +560,38 @@ els.randomBtn.addEventListener('click', () => {
 els.reloadBtn.addEventListener('click', () => {
   state.reloadCounter += 1;
   renderTheater();
+  focusGameFrame();
 });
 
 els.focusBtn.addEventListener('click', () => {
   state.theaterFocus = !state.theaterFocus;
-  els.theaterSection.classList.toggle('theater-focus', state.theaterFocus);
-  els.focusBtn.textContent = state.theaterFocus ? 'Exit Focus' : 'Focus Mode';
+  syncTheaterControls();
+  focusGameFrame();
 });
 
-els.fullscreenBtn.addEventListener('click', async () => {
-  try {
-    if (document.fullscreenElement) {
-      await document.exitFullscreen();
-    } else {
-      await els.theaterSection.requestFullscreen();
-    }
-  } catch {
-    // Fullscreen may be restricted in certain embedded frames
+els.fullscreenBtn.addEventListener('click', () => {
+  toggleFullscreen();
+});
+
+document.addEventListener('fullscreenchange', () => {
+  syncTheaterControls();
+  focusGameFrame();
+});
+
+document.addEventListener('webkitfullscreenchange', () => {
+  syncTheaterControls();
+  focusGameFrame();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && state.activeGame && state.theaterFocus && !isFullscreenActive()) {
+    state.theaterFocus = false;
+    syncTheaterControls();
   }
 });
 
 els.closeTheaterBtn.addEventListener('click', () => {
+  exitFullscreenIfActive();
   state.activeGame = null;
   state.theaterFocus = false;
   renderHero();

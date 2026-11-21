@@ -10,7 +10,7 @@
       "description": "Swap and match colorful candies in rows of three or more to trigger cascading combos and clear puzzle boards.",
       "thumbnail": "https://www.gamespot.com/a/uploads/scale_tiny/mig/0/3/8/0/2230380-candy_crush.png",
       "thumbnailFit": "contain",
-      "iframe": "<iframe src=\"https://w8.snokido.com/embed/candy-crush-saga\" id=\"embed\" allow=\"autoplay\" scrolling=\"no\" allowfullscreen=\"\"></iframe>"
+      "iframe": "<iframe src=\"https://w8.snokido.com/games/flash/ruffle2.html?g=candy-crush/game&v=270225\" title=\"Candy Crush Saga\" referrerpolicy=\"no-referrer\" allow=\"fullscreen; autoplay\" scrolling=\"no\" allowfullscreen=\"\"></iframe>"
     },
     {
       "id": "geometry-dash",
@@ -184,6 +184,78 @@
       "description": "Build, mine, and explore blocky 3D worlds right in your browser with the Precision Client 1.5.2 edition.",
       "thumbnail": "./src/assets/images/cover_eaglercraft_1795282890451.jpg",
       "iframe": "<iframe frameborder=\"0\" id=\"game\" style=\"text-align: center; align-items: center; overflow: hidden; width: 100%; height: 100%\" src=\"https://sz-games.github.io/storage3/AWeb/\" allowfullscreen=\"\" data-ruffle-polyfilled=\"\" height=\"956\"></iframe>"
+    },
+    {
+      "id": "head-soccer",
+      "title": "Head Soccer",
+      "category": "Sports",
+      "controls": "P1 Arrow Keys · P2 WASD",
+      "description": "Compete in 1P World Cup matches or 2P local duels, scoring headers and volleys across 32 national teams.",
+      "thumbnail": "./src/assets/images/cover_head_soccer_1795283049858.jpg",
+      "iframe": "<iframe src=\"https://turbowarp.org/474230268/embed\" title=\"Head Soccer\" allow=\"fullscreen; autoplay\" scrolling=\"no\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "punch-out",
+      "title": "Punch-Out!! The Master Engine",
+      "category": "Sports",
+      "controls": "Z/X or O/P Punch · Up/W Block · A/D Dodge · C/I Star",
+      "description": "Read each contender's tells, dodge incoming hooks, counter-punch for stars, and land knockout uppercuts.",
+      "thumbnail": "./src/assets/images/cover_punch_out_1795283138841.jpg",
+      "iframe": "<iframe src=\"https://turbowarp.org/651813378/embed\" title=\"Punch-Out!! The Master Engine\" allow=\"fullscreen; autoplay\" scrolling=\"no\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "ultimate-flash-sonic",
+      "title": "Ultimate Flash Sonic",
+      "category": "Arcade",
+      "controls": "Arrow Keys Move · Space Jump",
+      "description": "Sprint through emerald loops, collect golden rings, and battle Dr. Eggman in this classic Flash platformer via Ruffle.",
+      "thumbnail": "./src/assets/images/cover_sonic_1795283331544.jpg",
+      "iframe": "<iframe src=\"./games/sonic.html\" title=\"Ultimate Flash Sonic\" allow=\"fullscreen; autoplay\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "star-wars-game",
+      "title": "Star Wars Game",
+      "category": "Action",
+      "controls": "Arrow Keys Move, Jump & Attack · Space Start / X-Wing",
+      "description": "Choose your fighter, battle waves of droids, hop into an X-Wing, and duel Darth Vader in this galactic action game.",
+      "thumbnail": "./src/assets/images/cover_star_wars_game_1795283546160.jpg",
+      "iframe": "<iframe src=\"https://turbowarp.org/108205171/embed\" title=\"Star Wars Game\" allow=\"fullscreen; autoplay\" scrolling=\"no\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "angry-birds",
+      "title": "Angry Birds",
+      "category": "Puzzle",
+      "controls": "Mouse Drag Slingshot · Click Mid-Air Special",
+      "description": "Pull back the slingshot, launch birds with unique abilities, and topple pig fortresses across physics puzzle levels.",
+      "thumbnail": "./src/assets/images/cover_angry_birds_1795283791401.jpg",
+      "iframe": "<iframe src=\"https://w8.snokido.com/games/flash/ruffle.html?g=angry-birds-original&v=270225\" title=\"Angry Birds\" referrerpolicy=\"no-referrer\" allow=\"fullscreen; autoplay\" scrolling=\"no\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "drift-boss",
+      "title": "Drift Boss",
+      "category": "Arcade",
+      "controls": "Space, Click, or Tap Hold Drift · Release Straight",
+      "description": "Time crisp one-button drifts around floating 90-degree corners, collect coins, and unlock new cars without falling off.",
+      "thumbnail": "./src/assets/images/cover_drift_boss_1795284291798.jpg",
+      "iframe": "<iframe src=\"https://sz-games.github.io/Games11/drift-boss/game\" title=\"Drift Boss\" allow=\"fullscreen; autoplay\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "pokemon-firered",
+      "title": "Pokémon FireRed",
+      "category": "RPG",
+      "controls": "Arrow Keys Move · Z/Enter A · X/Shift B · Space Select",
+      "description": "Journey across the Kanto region, catch and train Pokémon, earn all eight Gym Badges, and challenge the Elite Four.",
+      "thumbnail": "./src/assets/images/cover_pokemon_firered_1795284522771.jpg",
+      "iframe": "<iframe src=\"https://classicgamezone.com/games/pokemon-firered\" title=\"Pokémon FireRed\" allow=\"fullscreen; autoplay; gamepad\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "pokemon-leafgreen",
+      "title": "Pokémon LeafGreen",
+      "category": "RPG",
+      "controls": "Arrow Keys Move · Z/Enter A · X/Shift B · Space Select",
+      "description": "Explore the Kanto region, capture rare wild Pokémon, defeat all eight Gym Leaders, and conquer the Pokémon League.",
+      "thumbnail": "./src/assets/images/cover_pokemon_leafgreen_1795284737463.jpg",
+      "iframe": "<iframe src=\"https://classicgamezone.com/games/pokemon-leafgreen\" title=\"Pokémon LeafGreen\" allow=\"fullscreen; autoplay; gamepad\" allowfullscreen=\"\"></iframe>"
     }
   ]
 }
