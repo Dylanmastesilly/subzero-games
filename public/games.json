@@ -275,11 +275,11 @@
     },
     {
       "id": "cookie-clicker",
-      "title": "Cookie Clicker",
+      "title": "Cookie Clicker Classic",
       "category": "Idle",
       "controls": "Click or tap the cookie and buy upgrades in the store",
       "description": "Bake cookies, buy buildings and upgrades, and grow your cookie production over time.",
-      "iframe": "https://funneljai212.github.io/cookie_clicker_2.048/"
+      "iframe": "https://orteil.dashnet.org/experiments/cookie/"
     }
   ]
 }
