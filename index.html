@@ -21,9 +21,198 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body class="bg-[#F4F5F7] text-[#111827] antialiased selection:bg-rose-600 selection:text-white">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="#top" id="brandLink" class="brand">Recess Arcade</a>
+
+        <nav class="header-nav" aria-label="Primary navigation">
+          <button type="button" class="nav-link" data-nav-category="All">All Games</button>
+          <button type="button" class="nav-link" data-nav-category="Arcade">Arcade</button>
+          <button type="button" class="nav-link" data-nav-category="Puzzle">Puzzle</button>
+          <a href="#json-catalog" class="nav-link">JSON Catalog</a>
+        </nav>
+
+        <button type="button" id="addGameBtn" class="btn-primary">Add Game</button>
+      </div>
+    </header>
+
+    <main id="top" class="main-container">
+      <section id="theaterSection" class="theater hidden" aria-label="Game Player">
+        <div class="theater-bar">
+          <div>
+            <h2 id="theaterTitle" class="theater-title">Game Title</h2>
+            <div class="theater-meta">
+              <span id="theaterCategory">Arcade</span>
+              <span aria-hidden="true">·</span>
+              <span id="theaterControls" class="theater-controls-hint">Keyboard &amp; Mouse</span>
+            </div>
+          </div>
+
+          <div class="theater-actions">
+            <button type="button" id="reloadBtn" class="btn-theater">Reload</button>
+            <button type="button" id="focusBtn" class="btn-theater">Focus Mode</button>
+            <button type="button" id="fullscreenBtn" class="btn-primary">Fullscreen</button>
+            <button type="button" id="closeTheaterBtn" class="btn-theater-close" aria-label="Close game player">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="theaterStage" class="theater-stage"></div>
+
+        <div class="theater-footer">
+          <span id="theaterDesc"></span>
+          <span id="theaterSrc" class="theater-src"></span>
+        </div>
+      </section>
+
+      <section id="heroSection" class="hero">
+        <div class="hero-copy">
+          <div id="heroMeta" class="hero-meta tabular-nums">
+            <span>HTML5 Browser Games</span>
+            <span aria-hidden="true">·</span>
+            <span>6 Iframe Entries</span>
+            <span aria-hidden="true">·</span>
+            <span>Local JSON Catalog</span>
+          </div>
+          <h1 class="hero-title">Instant unblocked games, ready in one click.</h1>
+          <p class="hero-desc">
+            Every game runs directly inside a clean iframe loaded from a single JSON catalog—fast, self-contained, and playable with keyboard or mouse.
+          </p>
+        </div>
+
+        <button type="button" id="randomBtn" class="btn-dark">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="16 3 21 3 21 8"></polyline>
+            <line x1="4" y1="20" x2="21" y2="3"></line>
+            <polyline points="21 16 21 21 16 21"></polyline>
+            <line x1="15" y1="15" x2="21" y2="21"></line>
+            <line x1="4" y1="4" x2="9" y2="9"></line>
+          </svg>
+          <span>Play Random</span>
+        </button>
+      </section>
+
+      <section id="catalog-grid" aria-label="Game directory">
+        <div class="toolbar">
+          <div id="filterTabs" class="filter-tabs" role="tablist" aria-label="Filter games by category"></div>
+
+          <div class="search-wrap">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input
+              type="search"
+              id="searchInput"
+              class="search-input"
+              placeholder="Search games..."
+              aria-label="Search games"
+            />
+          </div>
+        </div>
+
+        <div id="gridContainer"></div>
+      </section>
+
+      <section id="json-catalog" class="json-section" aria-labelledby="json-catalog-heading">
+        <div class="json-header">
+          <div>
+            <h2 id="json-catalog-heading">Iframe JSON Catalog</h2>
+            <p>
+              Every game in the directory is stored as an <code class="inline-code">iframe</code> entry inside <code class="inline-code">games.json</code>. Add custom entries above and download the updated JSON anytime.
+            </p>
+          </div>
+
+          <div class="json-actions">
+            <button type="button" id="resetCustomBtn" class="btn-secondary hidden">Reset Custom</button>
+            <button type="button" id="copyJsonBtn" class="btn-secondary">Copy JSON</button>
+            <button type="button" id="downloadJsonBtn" class="btn-dark">Download games.json</button>
+          </div>
+        </div>
+
+        <div class="json-box">
+          <div class="json-box-top">
+            <span>games.json</span>
+            <span id="jsonCount" class="tabular-nums">0 entries</span>
+          </div>
+          <pre class="json-pre"><code id="jsonPreview"></code></pre>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>Recess Arcade · Self-contained HTML, CSS, JS &amp; JSON Iframe Directory</span>
+        <a href="#top">Back to top</a>
+      </div>
+    </footer>
+
+    <div id="addModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="add-game-title">
+      <div class="modal-card">
+        <div class="modal-head">
+          <h2 id="add-game-title">Add Game Iframe to Catalog</h2>
+          <button type="button" id="closeModalBtn" class="modal-close" aria-label="Close dialog">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <form id="addGameForm" class="modal-form">
+          <div id="formError" class="form-error hidden"></div>
+
+          <div class="form-row">
+            <div>
+              <label for="gameTitleInput" class="form-label">Game Title</label>
+              <input id="gameTitleInput" type="text" class="form-input" placeholder="e.g. Tetris Block" />
+            </div>
+
+            <div>
+              <label for="gameCategoryInput" class="form-label">Category</label>
+              <select id="gameCategoryInput" class="form-select">
+                <option value="Arcade">Arcade</option>
+                <option value="Puzzle">Puzzle</option>
+                <option value="Strategy">Strategy</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="gameIframeInput" class="form-label">Iframe Code or Embed URL</label>
+            <textarea
+              id="gameIframeInput"
+              rows="3"
+              class="form-textarea"
+              placeholder='<iframe src="./games/brick-blitz.html" title="Brick Blitz"></iframe>'
+            ></textarea>
+          </div>
+
+          <div>
+            <label for="gameControlsInput" class="form-label">Controls Hint</label>
+            <input id="gameControlsInput" type="text" class="form-input" placeholder="Arrow Keys or Mouse" />
+          </div>
+
+          <div>
+            <label for="gameDescInput" class="form-label">Short Description</label>
+            <input id="gameDescInput" type="text" class="form-input" placeholder="One-line summary of the game" />
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" id="cancelModalBtn" class="btn-secondary">Cancel</button>
+            <button type="submit" class="btn-primary">Save to Catalog</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="./app.js"></script>
   </body>
 </html>
