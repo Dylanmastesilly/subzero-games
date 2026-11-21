@@ -335,7 +335,8 @@
       "category": "Arcade",
       "controls": "Follow the on-screen movement and ability prompts",
       "description": "Dodge attacks and try to be the last kernel standing in Google’s popcorn Doodle.",
-      "iframe": "https://google.com/logos/2024/popcorn/rc5/popcorn.html"
+      "iframe": "https://doodles.google/doodle/celebrating-popcorn/",
+      "openInNewTab": true
     }
   ]
 }
