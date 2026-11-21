@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pokémon GBA Emulator</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body { color: #e8f3fb; background: #080f1c; font: 16px system-ui, sans-serif; }
+    #setup { height: 100%; display: grid; place-items: center; padding: 24px; overflow: auto; }
+    form { width: min(100%, 28rem); }
+    h1 { margin: 0 0 12px; font-size: 1.5rem; }
+    p { line-height: 1.5; }
+    label, input { display: block; }
+    input { margin: 8px 0 16px; max-width: 100%; }
+    button { padding: 9px 14px; border: 0; border-radius: 6px; background: #38bdf8; color: #071522; font: inherit; font-weight: 600; }
+    #status { color: #fecaca; }
+    #game { width: 100%; height: 100%; background: #000; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <main id="setup">
+    <form id="rom-form">
+      <h1 id="title">Pokémon GBA Emulator</h1>
+      <p>Select your own Game Boy Advance ROM. The file stays on your device.</p>
+      <label for="rom">ROM file (.gba)</label>
+      <input id="rom" type="file" accept=".gba" required>
+      <button id="launch" type="submit">Start emulator</button>
+      <p id="status" role="alert"></p>
+    </form>
+  </main>
+  <div id="game" hidden></div>
+  <script>
+    const editions = new Map([
+      ['firered', { title: 'Pokémon FireRed', saveId: 101 }],
+      ['leafgreen', { title: 'Pokémon LeafGreen', saveId: 102 }]
+    ]);
+    const edition = editions.get(new URLSearchParams(location.search).get('edition'));
+    const form = document.getElementById('rom-form');
+    const setup = document.getElementById('setup');
+    const game = document.getElementById('game');
+    const launch = document.getElementById('launch');
+    const status = document.getElementById('status');
+    const emulatorData = 'https://cdn.emulatorjs.org/stable/data/';
+
+    if (edition) {
+      document.title = edition.title;
+      document.getElementById('title').textContent = edition.title;
+    } else {
+      launch.disabled = true;
+      status.textContent = 'Open FireRed or LeafGreen from the game catalog.';
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!edition || launch.disabled) return;
+      const rom = document.getElementById('rom').files[0];
+      if (!rom || !/\.gba$/i.test(rom.name) || rom.size < 192) {
+        status.textContent = 'Choose an uncompressed Game Boy Advance ROM (.gba).';
+        return;
+      }
+
+      launch.disabled = true;
+      status.textContent = '';
+      const romUrl = URL.createObjectURL(rom);
+      Object.assign(window, {
+        EJS_player: '#game',
+        EJS_core: 'gba',
+        EJS_gameUrl: romUrl,
+        EJS_gameID: edition.saveId,
+        EJS_gameName: edition.title,
+        EJS_pathtodata: emulatorData,
+        EJS_startOnLoaded: true
+      });
+
+      setup.hidden = true;
+      game.hidden = false;
+      const loader = document.createElement('script');
+      loader.src = emulatorData + 'loader.js';
+      loader.addEventListener('error', () => {
+        URL.revokeObjectURL(romUrl);
+        loader.remove();
+        game.hidden = true;
+        setup.hidden = false;
+        launch.disabled = false;
+        status.textContent = 'The emulator could not load. Check your connection and try again.';
+      }, { once: true });
+      document.head.append(loader);
+    });
+  </script>
+</body>
+</html>
