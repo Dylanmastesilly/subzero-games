@@ -304,6 +304,14 @@
       "controls": "Use the mouse or tap and follow each minigame’s prompts",
       "description": "React quickly to complete a series of minigames before the timer runs out.",
       "iframe": "https://www.miniplay.com/embed/dumb-ways-to-die"
+    },
+    {
+      "id": "papas-pizzeria",
+      "title": "Papa's Pizzeria",
+      "category": "Strategy",
+      "controls": "Mouse to Take Orders, Add Toppings, Bake, and Slice",
+      "description": "Run a pizza shop and make each pie to match the customer’s order.",
+      "iframe": "./games/papas-pizzeria.html"
     }
   ]
 }
