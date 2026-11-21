@@ -46,6 +46,33 @@
       "description": "Race across classic platformer arenas to grab falling Big Stars and outscore your rival in head-to-head Mario vs Luigi action.",
       "thumbnail": "./src/assets/images/cover_mario_vs_luigi_1795229523646.jpg",
       "iframe": "<iframe frameborder=\"0\" id=\"game\" style=\"text-align: center; align-items: center; overflow: hidden; width: 100%; height: 100%\" src=\"https://mr-funkinguy.github.io/gfile/mariovsluigi/index.html\" allowfullscreen=\"\" data-ruffle-polyfilled=\"\" height=\"956\"></iframe>"
+    },
+    {
+      "id": "sketchbook-0-4",
+      "title": "Sketchbook 0.4",
+      "category": "Sandbox",
+      "controls": "WASD Move · Mouse Look · F Enter Vehicle · Shift Sprint",
+      "description": "Explore a 3D physics-driven open-world sandbox—walk, drive rally cars, and pilot planes or helicopters across islands.",
+      "thumbnail": "./src/assets/images/cover_sketchbook_1795229656268.jpg",
+      "iframe": "<iframe src=\"https://mr-funkinguy.github.io/gfile/sketchbook/index.html\" title=\"Sketchbook 0.4\" allow=\"fullscreen; autoplay; pointer-lock\" allowfullscreen=\"\"></iframe>"
+    },
+    {
+      "id": "subway-surfers",
+      "title": "Subway Surfers",
+      "category": "Arcade",
+      "controls": "Arrow Keys or WASD Dodge, Jump & Roll · Space Hoverboard",
+      "description": "Dash along bustling subway rails, leap over oncoming trains, and collect coins in this classic endless runner.",
+      "thumbnail": "./src/assets/images/cover_subway_surfers_1795229758491.jpg",
+      "iframe": "<iframe frameborder=\"0\" id=\"game\" style=\"text-align: center; align-items: center; overflow: hidden; width: 100%; height: 100%\" src=\"https://dddavit.github.io/subway/\" allowfullscreen=\"\" data-ruffle-polyfilled=\"\" height=\"956\"></iframe>"
+    },
+    {
+      "id": "slope",
+      "title": "Slope",
+      "category": "Arcade",
+      "controls": "A/D or Left/Right Arrow Keys Steer",
+      "description": "Steer a high-speed rolling ball down steep 3D geometric slopes, weaving past red hazards and sudden drops.",
+      "thumbnail": "./src/assets/images/cover_slope_1795229837252.jpg",
+      "iframe": "<iframe src=\"https://sz-games.github.io/slope/\" title=\"Slope\" allow=\"fullscreen; autoplay\" allowfullscreen=\"\"></iframe>"
     }
   ]
 }
