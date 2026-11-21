@@ -320,6 +320,14 @@
       "controls": "Keyboard · See the game’s Controls menu",
       "description": "Battle across platform arenas and knock opponents off the stage.",
       "iframe": "./games/super-smash-flash.html"
+    },
+    {
+      "id": "snake",
+      "title": "Snake",
+      "category": "Arcade",
+      "controls": "Arrow Keys to Steer",
+      "description": "Eat food to grow your snake and avoid running into yourself or the walls.",
+      "iframe": "https://mr-funkinguy.github.io/gfile/snake/index.html"
     }
   ]
 }
