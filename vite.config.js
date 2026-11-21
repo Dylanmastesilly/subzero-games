@@ -7,6 +7,24 @@ export default defineConfig(() => {
     base: './',
     plugins: [
       {
+        name: 'serve-root-css-verbatim',
+        configureServer(server) {
+          server.middlewares.use((req, res, next) => {
+            const urlPath = (req.url || '').split('?')[0];
+            if (urlPath === '/styles.css') {
+              const cssPath = path.resolve(__dirname, 'styles.css');
+              if (fs.existsSync(cssPath)) {
+                res.setHeader('Content-Type', 'text/css; charset=utf-8');
+                res.setHeader('Cache-Control', 'no-cache');
+                res.end(fs.readFileSync(cssPath, 'utf-8'));
+                return;
+              }
+            }
+            next();
+          });
+        },
+      },
+      {
         name: 'copy-unbundled-src-assets',
         apply: 'build',
         closeBundle(error) {

@@ -57,7 +57,8 @@ const els = {
 function loadCustomGames() {
   try {
     const raw = localStorage.getItem(CUSTOM_GAMES_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
   } catch {
     return [];
   }
@@ -173,7 +174,7 @@ function renderLoadingState() {
   for (let i = 0; i < 6; i++) {
     const card = document.createElement('div');
     card.className = 'game-card';
-    card.innerHTML = '<div style="aspect-ratio:4/3;background:#e2e8f0"></div><div class="card-body"><div style="height:14px;width:96px;background:#e2e8f0;border-radius:4px;margin-bottom:10px"></div><div style="height:20px;width:160px;background:#e2e8f0;border-radius:4px"></div></div>';
+    card.innerHTML = '<div class="skeleton-thumb"></div><div class="card-body"><div class="skeleton-line-sm"></div><div class="skeleton-line-lg"></div></div>';
     grid.appendChild(card);
   }
   els.gridContainer.appendChild(grid);
@@ -258,13 +259,10 @@ function renderTheater() {
     const err = document.createElement('div');
     err.className = 'theater-error';
     const h = document.createElement('p');
-    h.style.fontWeight = '600';
-    h.style.color = '#ffffff';
+    h.className = 'theater-error-title';
     h.textContent = 'Invalid iframe source';
     const p = document.createElement('p');
-    p.style.fontSize = '12px';
-    p.style.color = '#94a3b8';
-    p.style.marginTop = '6px';
+    p.className = 'theater-error-desc';
     p.textContent = 'This entry does not contain a valid HTTP, HTTPS, or local game iframe URL.';
     err.append(h, p);
     els.theaterStage.appendChild(err);
@@ -297,9 +295,7 @@ function createThumbFallback(title) {
   fallback.className = 'card-thumb-fallback';
   fallback.innerHTML = ICONS.gamepad;
   const label = document.createElement('span');
-  label.className = 'brand';
-  label.style.fontSize = '16px';
-  label.style.color = '#ffffff';
+  label.className = 'brand fallback-title';
   label.textContent = title;
   fallback.appendChild(label);
   return fallback;

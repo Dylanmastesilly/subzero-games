@@ -919,3 +919,41 @@ textarea:focus-visible {
     scroll-behavior: auto !important;
   }
 }
+
+.skeleton-thumb {
+  aspect-ratio: 4 / 3;
+  background: #e2e8f0;
+}
+
+.skeleton-line-sm {
+  height: 14px;
+  width: 96px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.skeleton-line-lg {
+  height: 20px;
+  width: 160px;
+  background: #e2e8f0;
+  border-radius: 4px;
+}
+
+.fallback-title {
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.theater-error-title {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.theater-error-desc {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 6px;
+  max-width: 420px;
+}
+
