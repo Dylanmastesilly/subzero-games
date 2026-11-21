@@ -246,7 +246,7 @@
       "controls": "Arrow Keys Move · Z/Enter A · X/Shift B · Space Select",
       "description": "Journey across the Kanto region, catch and train Pokémon, earn all eight Gym Badges, and challenge the Elite Four.",
       "thumbnail": "./src/assets/images/cover_pokemon_firered_1795284522771.jpg",
-      "iframe": "<iframe src=\"./games/pokemon-gba.html?edition=firered\" title=\"Pokémon FireRed\" allow=\"fullscreen; autoplay; gamepad\" allowfullscreen=\"\"></iframe>"
+      "iframe": "<iframe src=\"https://f.kbhgames.com/emujs/play.php?c=gba&f=pokemonredfire.gba\" title=\"Pokémon FireRed\" allow=\"fullscreen; autoplay; gamepad\" allowfullscreen=\"\"></iframe>"
     },
     {
       "id": "pokemon-leafgreen",
@@ -255,7 +255,7 @@
       "controls": "Arrow Keys Move · Z/Enter A · X/Shift B · Space Select",
       "description": "Explore the Kanto region, capture rare wild Pokémon, defeat all eight Gym Leaders, and conquer the Pokémon League.",
       "thumbnail": "./src/assets/images/cover_pokemon_leafgreen_1795284737463.jpg",
-      "iframe": "<iframe src=\"./games/pokemon-gba.html?edition=leafgreen\" title=\"Pokémon LeafGreen\" allow=\"fullscreen; autoplay; gamepad\" allowfullscreen=\"\"></iframe>"
+      "iframe": "<iframe src=\"https://www.archive.play-games.com/games/emulate/?system=gba&path=pokemon/leafgreen.zip.zip&emulator=3&name=Pokemon%20Leaf%20Green\" title=\"Pokémon LeafGreen\" allow=\"fullscreen; autoplay; gamepad\" allowfullscreen=\"\"></iframe>"
     },
     {
       "id": "run-3",
