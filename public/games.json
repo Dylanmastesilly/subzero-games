@@ -280,6 +280,14 @@
       "controls": "Click or tap the cookie and buy upgrades in the store",
       "description": "Bake cookies, buy buildings and upgrades, and grow your cookie production over time.",
       "iframe": "https://cookieclickers.io/the-game/"
+    },
+    {
+      "id": "friday-night-funkin",
+      "title": "Friday Night Funkin’",
+      "category": "Rhythm",
+      "controls": "Arrow Keys or WASD to Hit Notes · Enter to Confirm",
+      "description": "Hit notes in time with the music in a series of rhythm battles.",
+      "iframe": "https://uploads.ungrounded.net/alternate/1528000/1528775_alternate_113347_r143.zip/"
     }
   ]
 }
