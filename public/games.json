@@ -272,6 +272,14 @@
       "controls": "Arrow Keys to Roll the Block",
       "description": "Roll a rectangular block across narrow platforms and stand it upright in the goal hole.",
       "iframe": "https://sz-games.github.io/games/blox.html"
+    },
+    {
+      "id": "cookie-clicker",
+      "title": "Cookie Clicker",
+      "category": "Idle",
+      "controls": "Click or tap the cookie and buy upgrades in the store",
+      "description": "Bake cookies, buy buildings and upgrades, and grow your cookie production over time.",
+      "iframe": "https://orteil.dashnet.org/cookieclicker/"
     }
   ]
 }
