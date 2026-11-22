@@ -360,6 +360,14 @@
       "controls": "Mouse to Use Cameras, Audio, and System Controls",
       "description": "Monitor Fazbear’s Fright, lure Springtrap away, and reboot failing systems to survive the night.",
       "iframe": "https://sz-games.github.io/Games9/fnaf-3/index.html"
+    },
+    {
+      "id": "five-nights-at-freddys-4",
+      "title": "Five Nights at Freddy's 4",
+      "category": "Strategy",
+      "controls": "Follow the in-game prompts · Listen for audio cues",
+      "description": "Check the doors, closet, and bed as you try to survive the night.",
+      "iframe": "https://sz-games.github.io/Games9/fnaf-4/index.html"
     }
   ]
 }
