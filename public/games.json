@@ -368,6 +368,14 @@
       "controls": "Follow the in-game prompts · Listen for audio cues",
       "description": "Check the doors, closet, and bed as you try to survive the night.",
       "iframe": "https://sz-games.github.io/Games9/fnaf-4/index.html"
+    },
+    {
+      "id": "breaking-the-bank",
+      "title": "Henry Stickmin: Breaking the Bank",
+      "category": "Puzzle",
+      "controls": "Click to choose Henry’s next move",
+      "description": "Try different choices and see how Henry’s bank heist plays out.",
+      "iframe": "./games/breaking-the-bank.html"
     }
   ]
 }
