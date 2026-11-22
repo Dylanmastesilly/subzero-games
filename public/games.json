@@ -352,6 +352,14 @@
       "controls": "Mouse to Use Cameras, Flashlight, Mask, and Music Box",
       "description": "Survive the night shift by watching the cameras, winding the music box, and keeping the animatronics away.",
       "iframe": "https://sz-games.github.io/Games4//fnaf-2/index.html"
+    },
+    {
+      "id": "five-nights-at-freddys-3",
+      "title": "Five Nights at Freddy's 3",
+      "category": "Strategy",
+      "controls": "Mouse to Use Cameras, Audio, and System Controls",
+      "description": "Monitor Fazbear’s Fright, lure Springtrap away, and reboot failing systems to survive the night.",
+      "iframe": "https://sz-games.github.io/Games9/fnaf-3/index.html"
     }
   ]
 }
