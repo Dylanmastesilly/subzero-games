@@ -400,6 +400,14 @@
       "controls": "Click to choose Henry’s next move",
       "description": "Choose how Henry boards the airship and see where each decision takes him.",
       "iframe": "./games/infiltrating-the-airship.html"
+    },
+    {
+      "id": "fleeing-the-complex",
+      "title": "Henry Stickmin: Fleeing the Complex",
+      "category": "Puzzle",
+      "controls": "Click to choose Henry’s next move",
+      "description": "Make choices for Henry and see where each escape attempt leads.",
+      "iframe": "./games/fleeing-the-complex.html"
     }
   ]
 }
