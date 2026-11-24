@@ -384,6 +384,14 @@
       "controls": "Click to choose Henry’s next move",
       "description": "Try different choices and see which ones help Henry escape.",
       "iframe": "./games/escaping-the-prison.html"
+    },
+    {
+      "id": "stealing-the-diamond",
+      "title": "Henry Stickmin: Stealing the Diamond",
+      "category": "Puzzle",
+      "controls": "Click to choose Henry’s next move",
+      "description": "Choose Henry’s next move and see how each attempt to steal the diamond plays out.",
+      "iframe": "./games/stealing-the-diamond.html"
     }
   ]
 }
