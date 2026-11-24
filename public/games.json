@@ -392,6 +392,14 @@
       "controls": "Click to choose Henry’s next move",
       "description": "Choose Henry’s next move and see how each attempt to steal the diamond plays out.",
       "iframe": "./games/stealing-the-diamond.html"
+    },
+    {
+      "id": "infiltrating-the-airship",
+      "title": "Henry Stickmin: Infiltrating the Airship",
+      "category": "Puzzle",
+      "controls": "Click to choose Henry’s next move",
+      "description": "Choose how Henry boards the airship and see where each decision takes him.",
+      "iframe": "./games/infiltrating-the-airship.html"
     }
   ]
 }
