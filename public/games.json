@@ -376,6 +376,14 @@
       "controls": "Click to choose Henry’s next move",
       "description": "Try different choices and see how Henry’s bank heist plays out.",
       "iframe": "./games/breaking-the-bank.html"
+    },
+    {
+      "id": "escaping-the-prison",
+      "title": "Henry Stickmin: Escaping the Prison",
+      "category": "Puzzle",
+      "controls": "Click to choose Henry’s next move",
+      "description": "Try different choices and see which ones help Henry escape.",
+      "iframe": "./games/escaping-the-prison.html"
     }
   ]
 }
